@@ -1,0 +1,28 @@
+on:
+  push:
+    branches:
+      - main
+name: 🚀 Building Linux
+jobs:
+  kernel-build:
+    name: 🎉 Building All Variants
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Compiling kernel stable
+      run: |
+          git clone https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git src/linux
+          cd src/linux || exit
+          cp ../../kernel_config/defconfig .config
+          make -j$(nproc)
+    # - name: 🚀 Building Linux Zen
+    #   run: |
+    #       git clone https://github.com/zen-kernel/zen-kernel.git src/linux
+    #       cd src/linux || exit
+    #       cp ../../kernel_config/defconfig .config
+    #       make -j$(nproc)
+    - name: 🚀 Building Linux Xanmod
+      run: |
+          git clone https://github.com/xanmod/linux.git
+          cd linux || exit
+          cp ../kernel_config/xanmod .config
+          make -j$(nproc)
