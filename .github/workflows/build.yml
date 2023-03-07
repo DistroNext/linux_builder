@@ -10,8 +10,9 @@ jobs:
     steps:
     - name: 🚚 Compiling kernel stable
       run: |
-          git clone https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git src/linux
-          cd src/linux || exit
+          wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.2.2.tar.xz
+          tar .xvf linux-6.2.2.tar.xz
+          cd linux-6.2.2 || exit
           cp ../kernel_config/defconfig .config
           make -j$(nproc)
     # - name: 🚀 Building Linux Zen
