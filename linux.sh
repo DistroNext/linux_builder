@@ -28,6 +28,9 @@
 
 ###############
 
+# Define latest stable linux version
+LINUX_VERSION=6.2.2
+
 if [ "$1" = "" ]
 then
     echo "Usage: $0 KERNEL"
@@ -41,11 +44,12 @@ fi
 
 if [ "$1" = "1" ]
 then
-    echo "Building latest linux kernel from main git"
-    git clone https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git src/linux
-    cd src/linux || exit
-    cp ../../kernel_config/defconfig .config
+    wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-$LINUX_VERSION.tar.xz
+    tar -xvf linux-$LINUX_VERSION.tar.xz
+    cd linux-$LINUX_VERSION || exit
+    cp ../kernel_config/defconfig .config
     make -j$(nproc)
+    rm -rf linux-$LINUX_VERSION.tar.xz
 elif [ "$1" = "2" ]
 then
     echo "Compiling zen kernel"
