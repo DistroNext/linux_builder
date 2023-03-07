@@ -12,7 +12,7 @@ jobs:
       run: |
           git clone https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git src/linux
           cd src/linux || exit
-          cp ../../kernel_config/defconfig .config
+          cp ./kernel_config/defconfig .config
           make -j$(nproc)
     # - name: 🚀 Building Linux Zen
     #   run: |
